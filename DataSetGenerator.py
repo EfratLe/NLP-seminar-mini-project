@@ -14,7 +14,8 @@ import numpy as np
 
 
 class DataSetGenerator:
-    def __init__(self, sourceDateSet, similarWordsDataSet, configs={}):
+    def __init__(self, sourceDateSet, similarWordsDataSet,
+                 configs={"number_negative_data_same_category": 200, "number_negative_data_different_category": 200}):
         self.source_dataset = []
         with open(sourceDateSet) as source:
             for row in csv.reader(source, delimiter=','):
@@ -25,15 +26,23 @@ class DataSetGenerator:
                 self.similarity_data.append((row[0], row[1]))
         self.similarity_data_row_0 = [data[0] for data in self.similarity_data]
         self.similarity_data_row_1 = [data[1] for data in self.similarity_data]
+        self.organize_source()
         # print(self.source_dataset)
-
         # open and read files
         # initialize configs
-        self.number_negative_data_same_category = 200
-        self.number_negative_data_different_category = 200
+        self.number_negative_data_same_category = configs.get("number_negative_data_same_category")
+        self.number_negative_data_different_category = configs.get("number_negative_data_different_category")
 
         self.punctuation = '!\'#$%&\'()*+, -./:;<=>?@[\]^_`{|}~'
         pass
+
+    def organize_source(self):
+        """
+        remove spaces in source data
+        :return:
+        """
+        for i,data in enumerate(self.source_dataset):
+            self.source_dataset[i][0]=" ".join(data[0].split())
 
     def create(self, destDataSet):  # adi
         """
