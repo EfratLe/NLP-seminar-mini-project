@@ -47,5 +47,6 @@ if __name__ == "__main__":
 
 
 #todo
-#we need to find a better dataset
+# we need to find a better dataset
 # we need to make the test harder maybe change more words...
+# maybe need to find more ways other then accuracy to give score

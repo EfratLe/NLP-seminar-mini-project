@@ -41,6 +41,12 @@ class Classification():
 
 
     def train(self,x_train :List[Tuple], y_train :List):
+        """
+        find best threshold using the training data
+        :param x_train:
+        :param y_train:
+        :return:
+        """
         best_threshold=-1
         best_threshold_accuracy=0
         for threshold in self.thresholds:
@@ -77,6 +83,10 @@ class Classification():
 
 
     def run_classification(self):
+        """
+        run classification few times using kfold
+        :return:
+        """
         accL = []
         accT = []
         skf = StratifiedKFold(n_splits=self.n_splits)
@@ -86,6 +96,7 @@ class Classification():
             self.train(x_t,y_t)
             accL.append(self.test(x_test,y_test))
             accT.append(self.test(x_t,y_t))
+            print(f"the best threshold is {self.best_threshold}")
         average_score_of_option = np.array(accL).sum(axis=0) / len(accL)
         print(f"the average accuracy over {self.n_splits} iteration on TEST is {average_score_of_option}")
         average_score_of_option = np.array(accT).sum(axis=0) / len(accL)
