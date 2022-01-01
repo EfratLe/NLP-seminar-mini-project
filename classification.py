@@ -39,6 +39,28 @@ class Classification():
                 acc += 1
         return acc / len(y_our)
 
+    def f_score(self,y_our: List, y_true: List )->float:
+        """
+        f-score calculation
+        :param y_our:
+        :param y_true:
+        :return:
+        """
+        tp = 0
+        fp=0
+        fn=0
+        for i, y in enumerate(y_our):
+            if y == y_true[i]:
+                if y=="1":
+                    tp+=1
+                else:
+                    fn+=1
+            if y!=y_true[i] and y=="1":
+                fp+=1
+        return tp/(tp+0.5*(fp+fn))
+
+        return acc / len(y_our)
+
 
     def train(self,x_train :List[Tuple], y_train :List):
         """
@@ -57,7 +79,7 @@ class Classification():
                     y_pred.append("1")
                 else:
                     y_pred.append("0")
-            acc=self.accuracy(y_pred,y_train)
+            acc=self.f_score(y_pred,y_train)
             if acc>best_threshold_accuracy:
                 best_threshold_accuracy=acc
                 best_threshold=threshold
@@ -78,7 +100,7 @@ class Classification():
                 y_pred.append("1")
             else:
                 y_pred.append("0")
-        return self.accuracy(y_test,y_pred)
+        return self.f_score(y_test,y_pred)
 
 
 
@@ -96,7 +118,7 @@ class Classification():
             self.train(x_t,y_t)
             accL.append(self.test(x_test,y_test))
             accT.append(self.test(x_t,y_t))
-            print(f"the best threshold is {self.best_threshold}")
+            # print(f"the best threshold is {self.best_threshold}")
         average_score_of_option = np.array(accL).sum(axis=0) / len(accL)
         print(f"the average accuracy over {self.n_splits} iteration on TEST is {average_score_of_option}")
         average_score_of_option = np.array(accT).sum(axis=0) / len(accL)

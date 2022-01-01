@@ -16,7 +16,7 @@ import numpy as np
 
 class DataSetGenerator:
     def __init__(self, sourceDateSet, similarWordsDataSet,
-                 configs={"number_negative_data_same_category": 200, "number_negative_data_different_category": 200, "number_positive_data_same_category":200}):
+                 configs={"number_negative_data_same_category": 300, "number_negative_data_different_category": 100, "number_positive_data_same_category":400}):
         self.source_dataset = []
         with open(sourceDateSet) as source:
             for row in csv.reader(source, delimiter=','):
