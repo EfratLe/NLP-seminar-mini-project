@@ -16,7 +16,8 @@ import numpy as np
 
 class DataSetGenerator:
     def __init__(self, sourceDateSet, similarWordsDataSet,
-                 configs={"number_negative_data_same_category": 300, "number_negative_data_different_category": 100, "number_positive_data_same_category":400}):
+                 configs={"number_negative_data_same_category": 300, "number_negative_data_different_category": 100,
+                          "number_positive_data_same_category": 400}):
         self.source_dataset = []
         with open(sourceDateSet) as source:
             for row in csv.reader(source, delimiter=','):
@@ -33,8 +34,8 @@ class DataSetGenerator:
         # initialize configs
         self.number_negative_data_same_category = configs.get("number_negative_data_same_category")
         self.number_negative_data_different_category = configs.get("number_negative_data_different_category")
-        self.number_positive_data_same_category =configs.get("number_positive_data_same_category")
-        self.synonym_switching_rate = 0.9
+        self.number_positive_data_same_category = configs.get("number_positive_data_same_category")
+        self.synonym_switching_rate = 1
         self.typos_injection_rate = 0.9
         self.punctuation_insetion_rate = 0.3
         self.punctuation = '!\'#$%&\'()*+, -./:;<=>?@[\]^_`{|}~'
@@ -45,8 +46,8 @@ class DataSetGenerator:
         remove spaces in source data
         :return:
         """
-        for i,data in enumerate(self.source_dataset):
-            self.source_dataset[i][0]=" ".join(data[0].split())
+        for i, data in enumerate(self.source_dataset):
+            self.source_dataset[i][0] = " ".join(data[0].split())
 
     def create(self, destDataSet):  # adi
         """
@@ -107,6 +108,7 @@ class DataSetGenerator:
             new_sentence = sample[0]
             if random.random() < self.synonym_switching_rate:
                 new_sentence = self.switchingSynonym(new_sentence)
+                new_sentence = self.switchingSynonym(new_sentence)
             if random.random() < self.typos_injection_rate:
                 new_sentence = self.injectTypos(new_sentence)
             if random.random() < self.punctuation_insetion_rate:
@@ -120,16 +122,18 @@ class DataSetGenerator:
         :param sentence:
         :return: sentence with typos
         """
+
         def typo(x):
-            if random.random() < 0.01: #insertion right
-                return random.choice(string.ascii_letters+string.digits) +x
+            if random.random() < 0.01:  # insertion right
+                return random.choice(string.ascii_letters + string.digits) + x
             if random.random() < 0.01:  # insertion left
-                return x + random.choice(string.ascii_letters+string.digits)
-            if random.random() < 0.01:  #replace
-                return random.choice(string.ascii_letters+string.digits)
-            if random.random() < 0.01:  #deletion
+                return x + random.choice(string.ascii_letters + string.digits)
+            if random.random() < 0.01:  # replace
+                return random.choice(string.ascii_letters + string.digits)
+            if random.random() < 0.01:  # deletion
                 return ""
             return x
+
         return ''.join(map(typo, sentence))
 
     def switchingSynonym(self, sentence: str) -> str:  # adi
@@ -160,6 +164,9 @@ class DataSetGenerator:
         :param sentence:
         :return: sentence with punctuation insertions
         """
+
         def randPunctuation():
             return random.choice(string.punctuation)
-        return ''.join(map(lambda x: (randPunctuation()+x if  random.random() < 0.5 else x+ randPunctuation()) if ((x.isspace() and random.random() < 0.05) or random.random() < 0.005) else x, sentence))
+
+        return ''.join(map(lambda x: (randPunctuation() + x if random.random() < 0.5 else x + randPunctuation()) if (
+                    (x.isspace() and random.random() < 0.05) or random.random() < 0.005) else x, sentence))
