@@ -119,6 +119,6 @@ class Classification():
             accT.append(self.test(x_t, y_t))
             # print(f"the best threshold is {self.best_threshold}")
         average_score_of_option = np.array(accL).sum(axis=0) / len(accL)
-        print(f"the average accuracy over {self.n_splits} iteration on TEST is {average_score_of_option}")
+        print(f"the average accuracy over {self.n_splits} iteration on TEST is {round(average_score_of_option,3)}")
         average_score_of_option = np.array(accT).sum(axis=0) / len(accL)
-        print(f"the average accuracy over {self.n_splits} iteration on TRAIN is {average_score_of_option}")
+        print(f"the average accuracy over {self.n_splits} iteration on TRAIN is {round(average_score_of_option,3)}")
