@@ -67,7 +67,7 @@ class overlapSimilarity(StringDistance):
 
     def overlap(self, list1: List[str], list2: List[str]) -> float:
         intersection = len(list(set(list1).intersection(list2)))
-        return intersection / min(len(list1), len(list2))
+        return intersection / min(len(set(list1)), len(set(list2)))
 
     def getSimilarity(self, sentence1: str, sentence2: str) -> float:
         list1 = list(sentence1)
