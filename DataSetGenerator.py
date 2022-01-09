@@ -108,7 +108,6 @@ class DataSetGenerator:
             new_sentence = sample[0]
             if random.random() < self.synonym_switching_rate:
                 new_sentence = self.switchingSynonym(new_sentence)
-                new_sentence = self.switchingSynonym(new_sentence)
             if random.random() < self.typos_injection_rate:
                 new_sentence = self.injectTypos(new_sentence)
             if random.random() < self.punctuation_insetion_rate:

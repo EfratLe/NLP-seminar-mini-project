@@ -56,8 +56,8 @@ class jaccardSimilarity(StringDistance):
         return float(intersection) / union
 
     def getSimilarity(self, sentence1: str, sentence2: str) -> float:
-        list1 = list(sentence1)
-        list2 = list(sentence2)
+        list1 = sentence1.split(" ")
+        list2 = sentence2.split(" ")
         return self.jaccard_similarity(list1, list2)
 
 
@@ -70,8 +70,8 @@ class overlapSimilarity(StringDistance):
         return intersection / min(len(set(list1)), len(set(list2)))
 
     def getSimilarity(self, sentence1: str, sentence2: str) -> float:
-        list1 = list(sentence1)
-        list2 = list(sentence2)
+        list1 = sentence1.split(" ")
+        list2 = sentence2.split(" ")
         return self.overlap(list1, list2)
 
     def get_name(self) -> str:

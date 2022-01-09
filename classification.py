@@ -59,6 +59,7 @@ class Classification():
                 if y == "1":
                     tp += 1
                 else:
+                    assert y == y_true[i]=="0"
                     fn += 1
             if y != y_true[i] and y == "1":
                 fp += 1
