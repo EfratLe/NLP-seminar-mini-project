@@ -26,8 +26,7 @@ def parse_args():
 
 
 def create_dataset():
-    generator = DataSetGenerator("mini-project-sentences-dataset.csv"
-                                 , "similar-related-pairs.csv")
+    generator = DataSetGenerator("mini-project-sentences-dataset.csv")
     generator.create("generated-dataset-demo.csv")
 
 
@@ -46,24 +45,7 @@ def test_dataset(method="accuracy"):
         classification.run_classification()
 
 
-def main():
-    # create dataset
-    generator = DataSetGenerator("mini-project-sentences-dataset.csv"
-                                 , "similar-related-pairs.csv")
-    generator.create("generated-dataset-demo.csv")
 
-    # get data
-    all_dataX, all_dataY = [], []
-    with open("generated-dataset-demo.csv") as source:
-        for row in csv.reader(source, delimiter=','):
-            all_dataX.append((row[0], row[1]))
-            all_dataY.append(row[2])
-
-    # run classification
-    for similarity in similarityDistanceClasses:
-        print(f"running classification using {similarity.get_name()}")
-        classification = Classification(similarity, all_dataX, all_dataY)
-        classification.run_classification()
 
 
 def run_all(args):

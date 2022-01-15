@@ -12,22 +12,16 @@ from typing import List
 import math
 import string
 import numpy as np
+from nltk.corpus import wordnet
 
 
 class DataSetGenerator:
-    def __init__(self, sourceDateSet, similarWordsDataSet,
-                 configs={"number_negative_data_same_category": 300, "number_negative_data_different_category": 100,
+    def __init__(self, sourceDateSet,configs:dict={"number_negative_data_same_category": 300, "number_negative_data_different_category": 100,
                           "number_positive_data_same_category": 400}):
         self.source_dataset = []
         with open(sourceDateSet) as source:
             for row in csv.reader(source, delimiter=','):
                 self.source_dataset.append(row)
-        self.similarity_data = []
-        with open(similarWordsDataSet) as source:
-            for row in csv.reader(source, delimiter=','):
-                self.similarity_data.append((row[0], row[1]))
-        self.similarity_data_row_0 = [data[0] for data in self.similarity_data]
-        self.similarity_data_row_1 = [data[1] for data in self.similarity_data]
         self.organize_source()
         # print(self.source_dataset)
         # open and read files
@@ -39,7 +33,6 @@ class DataSetGenerator:
         self.typos_injection_rate = 0.9
         self.punctuation_insetion_rate = 0.3
         self.punctuation = '!\'#$%&\'()*+, -./:;<=>?@[\]^_`{|}~'
-        pass
 
     def organize_source(self):
         """
@@ -135,7 +128,8 @@ class DataSetGenerator:
 
         return ''.join(map(typo, sentence))
 
-    def switchingSynonym(self, sentence: str) -> str:  # adi
+
+    def switchingSynonym(self, sentence: str,number_words_to_change:int=3) -> str:  # adi
         """
         finding the first word in the shuffle list that can be switched to a similar word and switch it.
         :param sentence:
@@ -144,18 +138,20 @@ class DataSetGenerator:
         sentance_list = sentence.split(" ")
         shuffle_index = list(range(len(sentance_list)))
         random.shuffle(shuffle_index)
+        number_words_changed=0
         for i in shuffle_index:
-            index = self.similarity_data_row_0.index(sentance_list[i]) if sentance_list[
-                                                                              i] in self.similarity_data_row_0 else -1
-            if index != -1:
-                sentance_list[i] = self.similarity_data_row_1[index]
+            if number_words_changed==number_words_to_change:
                 break
-            index = self.similarity_data_row_1.index(sentance_list[i]) if sentance_list[
-                                                                              i] in self.similarity_data_row_1 else -1
-            if index != -1:
-                sentance_list[i] = self.similarity_data_row_0[index]
-                break
+            word_synonyms=[]
+            for syn in wordnet.synsets(sentance_list[i]):
+                for lm in syn.lemmas():
+                    if lm.name()!=sentance_list[i]:
+                        word_synonyms.append(lm.name())
+            if len(word_synonyms)>0:
+                sentance_list[i]=word_synonyms[0]
+                number_words_changed+=1
         return " ".join(sentance_list)
+
 
     def punctuationInsertion(self, sentence):  # efrat
         """
