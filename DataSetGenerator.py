@@ -19,8 +19,12 @@ class DataSetGenerator:
     def __init__(self, sourceDateSet,configs:dict={"number_negative_data_same_category": 300, "number_negative_data_different_category": 100,
                           "number_positive_data_same_category": 400}):
         self.source_dataset = []
+        i=0
         with open(sourceDateSet) as source:
             for row in csv.reader(source, delimiter=','):
+                if i==0:
+                    print(row)
+                    i+=1
                 self.source_dataset.append(row)
         self.organize_source()
         # print(self.source_dataset)

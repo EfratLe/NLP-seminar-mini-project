@@ -20,13 +20,15 @@ similarityDistanceClasses = [BertEmbed(), jaccardSimilarity(), editSimilarity(),
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--create_dataset", action="store_true")
+    parser.add_argument("-p","--dataset_path", required=False)
     parser.add_argument("--test_dataset", action="store_true")
     parser.add_argument("--f_score", action="store_true")
     return parser.parse_args()
 
 
-def create_dataset():
-    generator = DataSetGenerator("mini-project-sentences-dataset.csv")
+def create_dataset(path="test.csv"):
+    # generator = DataSetGenerator("mini-project-sentences-dataset.csv")
+    generator = DataSetGenerator(path)
     generator.create("generated-dataset-demo.csv")
 
 
@@ -50,7 +52,11 @@ def test_dataset(method="accuracy"):
 
 def run_all(args):
     if args.create_dataset == True:
-        create_dataset()
+        if args.dataset_path!=None:
+            print(args.dataset_path)
+            create_dataset(args.dataset_path)
+        else:
+            create_dataset()
     if args.test_dataset == True:
         method = "accuracy"
         if args.f_score == True:

@@ -25,7 +25,7 @@ class Classification():
         :param all_x:
         :param all_y:
         :param indexes_list:
-        :return:
+        :return: tuple of x list and y list
         """
         x = [all_x[index] for index in indexes_list]
         y = [all_y[index] for index in indexes_list]
@@ -36,7 +36,7 @@ class Classification():
         accuracy calculation
         :param y_our:
         :param y_true:
-        :return:
+        :return:accuracy value
         """
         acc = 0
         for i, y in enumerate(y_our):
@@ -49,7 +49,7 @@ class Classification():
         f-score calculation
         :param y_our:
         :param y_true:
-        :return:
+        :return:f_score value
         """
         tp = 0
         fp = 0
@@ -93,7 +93,7 @@ class Classification():
         return accuracy on test
         :param x_test:
         :param y_test:
-        :return:
+        :return:resurn the score of the method on the test
         """
         y_pred = []
         for x in x_test:
