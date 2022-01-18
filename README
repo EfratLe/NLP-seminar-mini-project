@@ -1,0 +1,12 @@
+To run the code can run the line:
+
+    $python\ main.py\ --create\_dataset\ -p --test\_dataset\ --f\_score$
+
+
+$--create\_dataset$ -  will create the dataset and will save it in the same directory under the name "generated-dataset-demo.csv"
+
+$-p$ - give a path to the csv to use (the first column needs to be the sentences and the second column the classification value)
+
+$--test\_dataset$ - will test the performance of the similarity methods on the dataset
+
+$--f\_score$ - will test the performance using f-score. If not adding it the performance method will be accuracy.
