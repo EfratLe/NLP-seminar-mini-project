@@ -1,0 +1,8 @@
+conda install numpy
+pip install nltk
+conda install sklearn
+pip install sentence-transformers
+
+
+import nltk
+nltk.download('omw-1.4')
