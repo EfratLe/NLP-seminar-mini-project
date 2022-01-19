@@ -7,11 +7,6 @@ import csv
 from classification import Classification
 from sentance_similarity import BertEmbed, jaccardSimilarity, editSimilarity, overlapSimilarity
 
-# generator = DataSetGenerator("mini-project-sentences-dataset.csv"
-#                              , "similar-related-pairs.csv")
-# generator.create("generated-dataset-demo.csv")
-#
-# generator.switchingSynonym("50-year-old problem of biology solved by Artificial Intelligence")
 
 
 similarityDistanceClasses = [BertEmbed(), jaccardSimilarity(), editSimilarity(), overlapSimilarity()]
@@ -27,7 +22,6 @@ def parse_args():
 
 
 def create_dataset(path="test.csv"):
-    # generator = DataSetGenerator("mini-project-sentences-dataset.csv")
     generator = DataSetGenerator(path)
     generator.create("generated-dataset-demo.csv")
 
