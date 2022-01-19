@@ -1,0 +1,6 @@
+conda install numpy
+conda install -c conda-forge nltk
+conda install scikit-learn
+pip install sentence-transformers
+
+

@@ -1,0 +1,10 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file> -c defaults -c conda-forge
+# platform: win-64
+
+numpy=1.22.0=py38hcf66579_0
+python=3.8.12=h6244533_0
+scikit-learn=1.0.2=py38hf11a4ad_0
+scipy=1.7.3=py38ha1292f7_0
+
+pip install sentence-transformers

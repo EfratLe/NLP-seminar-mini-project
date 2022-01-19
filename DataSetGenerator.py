@@ -13,6 +13,7 @@ import math
 import string
 import numpy as np
 from nltk.corpus import wordnet
+import nltk
 
 
 class DataSetGenerator:
@@ -20,6 +21,7 @@ class DataSetGenerator:
                                                        "number_negative_data_different_category": 100,
                                                        "number_positive_data_same_category": 400}):
         self.source_dataset = []
+        nltk.download('omw-1.4')
         with open(sourceDateSet) as source:
             for row in csv.reader(source, delimiter=','):
                 self.source_dataset.append(row)
