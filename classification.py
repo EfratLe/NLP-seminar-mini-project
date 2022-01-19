@@ -59,7 +59,7 @@ class Classification():
                 if y == "1":
                     tp += 1
                 else:
-                    assert y == y_true[i]=="0"
+                    assert y == y_true[i] == "0"
                     fn += 1
             if y != y_true[i] and y == "1":
                 fp += 1
@@ -120,6 +120,6 @@ class Classification():
             accT.append(self.test(x_t, y_t))
             # print(f"the best threshold is {self.best_threshold}")
         average_score_of_option = np.array(accL).sum(axis=0) / len(accL)
-        print(f"the average accuracy over {self.n_splits} iteration on TEST is {round(average_score_of_option,3)}")
+        print(f"the average accuracy over {self.n_splits} iteration on TEST is {round(average_score_of_option, 3)}")
         average_score_of_option = np.array(accT).sum(axis=0) / len(accL)
-        print(f"the average accuracy over {self.n_splits} iteration on TRAIN is {round(average_score_of_option,3)}")
+        print(f"the average accuracy over {self.n_splits} iteration on TRAIN is {round(average_score_of_option, 3)}")

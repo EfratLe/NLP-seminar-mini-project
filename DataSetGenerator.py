@@ -16,8 +16,9 @@ from nltk.corpus import wordnet
 
 
 class DataSetGenerator:
-    def __init__(self, sourceDateSet,configs:dict={"number_negative_data_same_category": 300, "number_negative_data_different_category": 100,
-                          "number_positive_data_same_category": 400}):
+    def __init__(self, sourceDateSet, configs: dict = {"number_negative_data_same_category": 300,
+                                                       "number_negative_data_different_category": 100,
+                                                       "number_positive_data_same_category": 400}):
         self.source_dataset = []
         with open(sourceDateSet) as source:
             for row in csv.reader(source, delimiter=','):
@@ -128,8 +129,7 @@ class DataSetGenerator:
 
         return ''.join(map(typo, sentence))
 
-
-    def switchingSynonym(self, sentence: str,number_words_to_change:int=3) -> str:  # adi
+    def switchingSynonym(self, sentence: str, number_words_to_change: int = 2) -> str:  # adi
         """
         finding the first word in the shuffle list that can be switched to a similar word and switch it.
         :param sentence:
@@ -138,20 +138,19 @@ class DataSetGenerator:
         sentance_list = sentence.split(" ")
         shuffle_index = list(range(len(sentance_list)))
         random.shuffle(shuffle_index)
-        number_words_changed=0
+        number_words_changed = 0
         for i in shuffle_index:
-            if number_words_changed==number_words_to_change:
+            if number_words_changed == number_words_to_change:
                 break
-            word_synonyms=[]
+            word_synonyms = []
             for syn in wordnet.synsets(sentance_list[i]):
                 for lm in syn.lemmas():
-                    if lm.name()!=sentance_list[i]:
+                    if lm.name() != sentance_list[i]:
                         word_synonyms.append(lm.name())
-            if len(word_synonyms)>0:
-                sentance_list[i]=word_synonyms[0]
-                number_words_changed+=1
+            if len(word_synonyms) > 0:
+                sentance_list[i] = word_synonyms[0]
+                number_words_changed += 1
         return " ".join(sentance_list)
-
 
     def punctuationInsertion(self, sentence):  # efrat
         """
@@ -164,4 +163,4 @@ class DataSetGenerator:
             return random.choice(string.punctuation)
 
         return ''.join(map(lambda x: (randPunctuation() + x if random.random() < 0.5 else x + randPunctuation()) if (
-                    (x.isspace() and random.random() < 0.05) or random.random() < 0.005) else x, sentence))
+                (x.isspace() and random.random() < 0.05) or random.random() < 0.005) else x, sentence))

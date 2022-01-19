@@ -20,7 +20,7 @@ similarityDistanceClasses = [BertEmbed(), jaccardSimilarity(), editSimilarity(),
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--create_dataset", action="store_true")
-    parser.add_argument("-p","--dataset_path", required=False)
+    parser.add_argument("-p", "--dataset_path", required=False)
     parser.add_argument("--test_dataset", action="store_true")
     parser.add_argument("--f_score", action="store_true")
     return parser.parse_args()
@@ -47,12 +47,9 @@ def test_dataset(method="accuracy"):
         classification.run_classification()
 
 
-
-
-
 def run_all(args):
     if args.create_dataset == True:
-        if args.dataset_path!=None:
+        if args.dataset_path != None:
             print(args.dataset_path)
             create_dataset(args.dataset_path)
         else:
@@ -67,9 +64,5 @@ def run_all(args):
 if __name__ == "__main__":
     args = parse_args()
     run_all(args)
-    # main()
 
-# todo
-# we need to find a better dataset
-# we need to make the test harder maybe change more words...
-# maybe need to find more ways other then accuracy to give score
+
