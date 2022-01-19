@@ -7,8 +7,8 @@ To run the code can run the line:
 
 --create_dataset -  will create the dataset and will save it in the same directory under the name "generated-dataset-demo.csv"
 
--p - give a path to the csv to use (the first column needs to be the sentences and the second column the classification value)
-- if not used will create data set using test.csv
+-p - give a path to the csv to use (the first column needs to be the sentences and the second column the classification value).
+if not used will create data set using test.csv
 
 --test_dataset - will test the performance of the similarity methods on the dataset
 
