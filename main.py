@@ -7,17 +7,19 @@ import csv
 from classification import Classification
 from sentance_similarity import BertEmbed, jaccardSimilarity, editSimilarity, overlapSimilarity
 
-
-
 similarityDistanceClasses = [BertEmbed(), jaccardSimilarity(), editSimilarity(), overlapSimilarity()]
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--create_dataset", action="store_true")
-    parser.add_argument("-p", "--dataset_path", required=False)
-    parser.add_argument("--test_dataset", action="store_true")
-    parser.add_argument("--f_score", action="store_true")
+    parser.add_argument("--create_dataset", action="store_true",
+                        help="will create the dataset and will save it in the same directory under the name 'generated-dataset-demo.csv'")
+    parser.add_argument("-p", "--dataset_path", required=False,
+                        help="give a path to the csv to use (the first column needs to be the sentences and the second column the classification value).if not used will create data set using test.csv")
+    parser.add_argument("--test_dataset", action="store_true",
+                        help=" will test the performance of the similarity methods on the dataset")
+    parser.add_argument("--f_score", action="store_true",
+                        help="will test the performance using f-score. If not adding it the performance method will be accuracy.")
     return parser.parse_args()
 
 
@@ -58,5 +60,3 @@ def run_all(args):
 if __name__ == "__main__":
     args = parse_args()
     run_all(args)
-
-
