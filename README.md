@@ -28,6 +28,4 @@ The optional flags to run the code with:
 
 # configurations
 
-The DataSetGenerator class contains the dataset genreration configuration. It recievce the based dataset location, and a config dictionary. The config dictionary should state the number of negative examples to generate of the same category, and different categories, and the positive examples. The sentences are chosen randomaly.
-There are also variables that determine the synonym switiching rate - the precentage of positive examples with synonym switiching (max number of switching in a sentence is currently 1). typos_injection_rate and punctuation_insertion_rate determine the precentage of positive examples with these transformations. 
-
+The DataSetGenerator class contains the dataset generation code and configuration. It receives the based dataset location and a config dictionary. The config dictionary should state the number of negative examples to generate of the same category, different categories, and positive examples. The sentences are chosen randomly. synonym_switching_rate determines the synonym switching rate - the percentage of positive samples with synonym switching (max number of switching in a sentence is currently 1). typos_injection_rate and punctuation_insertion_rate determine the percentage of positive examples with these transformations.
