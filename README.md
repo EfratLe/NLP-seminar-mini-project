@@ -24,4 +24,10 @@ The optional flags to run the code with:
 
 ```--test_dataset``` - Test the performance of the similarity methods on the dataset
 
-#configurations
+![image](https://user-images.githubusercontent.com/29407344/151696869-798ee3f9-1787-4cb6-a8c3-57fc7c720806.png)
+
+# configurations
+
+The DataSetGenerator class contains the dataset genreration configuration. It recievce the based dataset location, and a config dictionary. The config dictionary should state the number of negative examples to generate of the same category, and different categories, and the positive examples. The sentences are chosen randomaly.
+There are also variables that determine the synonym switiching rate - the precentage of positive examples with synonym switiching (max number of switching in a sentence is currently 1). typos_injection_rate and punctuation_insertion_rate determine the precentage of positive examples with these transformations. 
+
